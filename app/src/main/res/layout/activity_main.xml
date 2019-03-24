@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize">
+
+        <com.andexert.library.RippleView
+            android:id="@+id/rv_ic_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="5dp"
+            android:layout_marginStart="9dp"
+            app:rv_centered="true"
+            app:rv_rippleDuration="80"
+            app:rv_type="simpleRipple"
+            >
+
+            <ImageView
+                android:id="@+id/ic_menu"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:clickable="true"
+                android:src="@drawable/icon_actionbar_home"
+                android:focusable="true" />
+        </com.andexert.library.RippleView>
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:minHeight="?attr/actionBarSize"
+            android:padding="15dp"
+            android:text="共享单车智能锁"
+            android:textAlignment="center"
+            android:textColor="@color/share_view"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <com.andexert.library.RippleView
+            android:id="@+id/rv_ic_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="9dp"
+            android:layout_toLeftOf="@+id/rv_ic_message"
+            app:rv_centered="true"
+            app:rv_rippleDuration="80"
+            app:rv_type="simpleRipple"
+            >
+
+            <ImageView
+                android:id="@+id/ic_search"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:clickable="true"
+                android:src="@drawable/icon_actionbar_search"/>
+        </com.andexert.library.RippleView>
+
+        <com.andexert.library.RippleView
+            android:id="@+id/rv_ic_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="9dp"
+            app:rv_centered="true"
+            app:rv_rippleDuration="80"
+            app:rv_type="simpleRipple"
+            >
+
+        </com.andexert.library.RippleView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_selectmobike"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:gravity="center"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tv_allmobike"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:tag="0"
+            android:text="全部单车"
+            android:textColor="@color/white"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/bike_info_board"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--
+        <com.baidu.mapapi.map.TextureMapView
+            android:id="@+id/bmapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true">
+
+        </com.baidu.mapapi.map.TextureMapView>
+
+-->
+        <!--显示网页区域-->
+        <WebView
+            android:id="@+id/bmapview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/id_bt_login"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/red"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="left|center_vertical"
+                android:maxLines="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="你尚未完成手机验证，请先进行手机验证"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/dingwei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="8dp"
+                android:clickable="true"
+                android:src="@drawable/map_location_btn" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/search_center_ic" />
+
+            <RelativeLayout
+                android:id="@+id/refreshAll"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_above="@+id/dingwei"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/map_refresh_btn"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/refresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/map_refresh_btn_arrow" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/scan_qrcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="8dp"
+                android:background="@drawable/scan_unlock_button"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="开锁二维码"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

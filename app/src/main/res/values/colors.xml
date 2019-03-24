@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#32b16c</color>
+    <color name="colorPrimaryDark">#32b16c</color>
+    <color name="colorAccent">#60CED8</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="red">#F05B48</color>
+
+    <color name="gray">#D9D9D9</color>
+    
+    <color name="nfc">#FF31383D</color>
+    <color name="bg">#F5F5F5</color>
+
+
+    <!--qrcode-->
+    <color name="bg_color">#EDEDED</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_view">#b0000000</color>
+    <color name="share_view">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="green">#acd697</color>
+</resources>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/id_lo_ride_summary"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingBottom="10dp"
+              android:paddingTop="10dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/text_cursor_line">
+
+        <com.yiwent.viewlib.ShiftyTextview
+            android:id="@+id/tv_ride"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            app:duration="1000"
+            app:runWhenChange="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="累计骑行（公里）"
+            android:textColor="@color/smssdk_gray"
+            android:textSize="10sp"/>
+    </LinearLayout>
+
+    <include layout="@layout/divider_satand"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.yiwent.viewlib.ShiftyTextview
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            app:duration="1000"
+            app:runWhenChange="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="节约碳排放（千克）"
+            android:textColor="@color/smssdk_gray"
+            android:textSize="10sp"/>
+    </LinearLayout>
+
+    <include layout="@layout/divider_satand"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.yiwent.viewlib.ShiftyTextview
+            android:id="@+id/tv_kaluli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            app:duration="1000"
+            app:runWhenChange="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="运动成就（大卡）"
+            android:textColor="@color/smssdk_gray"
+            android:textSize="10sp"/>
+    </LinearLayout>
+
+</LinearLayout>

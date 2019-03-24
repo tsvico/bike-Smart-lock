@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyToolBar">
+        <attr name="showSearchView" format="boolean"/>
+        <attr name="leftButtonIcon" format="reference"/>
+        <attr name="rightButtonIcon" format="reference"/>
+        <attr name="myTitle" format="string"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="MySettingView">
+        <attr name="showIndicate" format="boolean"/>
+        <attr name="showRightImage" format="boolean"/>
+        <attr name="showDotImage" format="boolean"/>
+        <attr name="showRightTv" format="boolean"/>
+        <attr name="leftTvText" format="string"/>
+        <attr name="rightTvText" format="string"/>
+        <attr name="ringhtTvTextColor" format="reference"/>
+        <attr name="rightImageIcon" format="reference"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="TabTitleView">
+        <attr name="showRightTextView" format="boolean"/>
+        <attr name="leftImageIcon" format="reference"/>
+        <attr name="rightTvColor" format="reference"/>
+        <attr name="titleText" format="string"/>
+        <attr name="rightText" format="string"/>
+
+    </declare-styleable>
+
+    <!--qrcode-->
+        <declare-styleable name="qr_ViewfinderView">
+            <attr name="qr_angleColor" format="color"/>
+            <attr name="qr_hint" format="string"/>
+            <attr name="qr_textHintColor" format="color"/>
+            <attr name="qr_errorHint" format="string"/>
+            <attr name="qr_textErrorHintColor" format="color"/>
+            <attr name="qr_offsetX" format="integer"/>
+            <attr name="qr_offsetY" format="integer"/>
+            <attr name="qr_showPossiblePoint" format="boolean"/>
+        </declare-styleable>
+
+
+
+
+</resources>

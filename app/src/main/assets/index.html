@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+      <script src="jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <style type="text/css">
+        #panel {
+            position: fixed;
+            background-color: white;
+            max-height: 90%;
+            overflow-y: auto;
+            top: 10px;
+            right: 10px;
+            width: 280px;
+        }
+		.amap-zoomcontrol{width:24px;
+		position:absolute;
+		-webkit-user-select:none;
+		-moz-user-select:none;
+		-ms-user-select:none;
+		-o-user-select:none;
+		user-select:none}
+		.amap-zoom-touch-plus{
+		margin-bottom:5px}
+		.amap-zoomcontrol{
+		position:absolute;
+		left: 45%;
+		bottom:61px;
+		z-index:500;
+        }
+    </style>
+    <title>基本地图展示</title>
+
+    <style type="text/css">
+        html,body{
+        width:100%;
+        height:100%;
+        }
+        #container{height:auto;}
+    </style>
+    <style>
+        .icon{margin:auto;margin-top:150%;width:30px;height:30px;position:relative}
+        .icon .b{border:2px solid #666;width:100%;height:100%;border-radius:3px}
+        .icon .h{background-color:#fff;width:112%;height:49%;position:absolute;left:0;top:32%}
+        .icon .s{background-color:#fff;width:49%;height:112%;position:absolute;left:32%;top:0}
+        .icon .z{background-color:#666;width:65%;height:2px;line-height:0;font-size:0;position:absolute;left:22%;top:53%}
+    </style>
+
+    <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.13&key=dac44c29d22559faa1295ac4f919f29a&plugin=AMap.Walking"></script>
+    <script>
+     function id(){
+        geo.clearWatch(); //停止导航
+        daohang=0;//可以重新加载周围数据
+        android.showToast(idd);  //传id到二维码页面
+        }
+    </script>
+</head>
+<body>
+<div id="container"></div>
+<div id="tip"></div>
+<!--<div class="amap-zoomcontrol" onClick="Qcode()" id="icon" >-->
+<div class="amap-zoomcontrol" onClick="android.showToast(idd)" id="icon" >
+	<!--<img src="qrcode.png" >-->
+</div>
+<div id="code" style="margin:auto;position: absolute;"></div>
+<script>
+
+    var log = document.getElementsByClassName('log')[0];
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom:13, //初始地图显示范围
+        //center: [104.065794,30.657483],
+    });
+    nq=0;
+    daohang = 0;
+    AMap.plugin(['AMap.Geolocation'],function(){//异步加载插件
+        geo = new AMap.Geolocation({
+         // 是否使用高精度定位，默认：true
+    	//enableHighAccuracy: true,
+    	// 设置定位超时时间，默认：无穷大
+    	//timeout: 10000,
+    	// 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+    	//buttonOffset: new AMap.Pixel(10, 20),
+    	//  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+    	zoomToAccuracy: true,
+    	//  定位按钮的排放位置,  RB表示右下
+    	//buttonPosition: 'LB',
+        //默认为false，设置为true的时候可以调整PC端为优先使用浏览器定位，失败后使用IP定位
+        //GeoLocationFirst: true
+        showButton:false,
+        useNative:true
+    })
+    geo.on('complete',function(e){
+      //log.innerHTML+=e.info+' '+e.position+' '+e.message.split('.')[0]+'</br>'
+       x = e.position.getLng();
+       y = e.position.getLat();
+    })
+    geo.on('fail',function(e){
+     log.innerHTML+=e.info+e.message.split('.')[0]+'</br>'
+    })
+        map.addControl(geo);
+  		map.addControl(geo);
+        geo.getCurrentPosition();
+        AMap.event.addListener(geo, 'complete', onComplete);//返回定位信息
+        AMap.event.addListener(geo, 'error', onError);      //返回定位出错信息
+    });
+    //解析定位结果
+    function onComplete(data) {
+
+        x = data.position.getLng();
+        y = data.position.getLat();
+        if(daohang==1){
+            var str=['持续导航中'];
+            }else{
+            var str=['定位成功'];
+            Geting(); //请求数据
+            console.log("定位执行了"+nq+"次");
+         }
+        console.log("daohang---->"+daohang);
+        document.getElementById('tip').innerHTML = str.join('<br>');
+        nq++ ;
+     }
+     //点击事件 没有执行
+     var clickHandler = function(e){
+
+        addMarker(e.lnglat.getLng(),e.lnglat.getLat());
+        //取消导航
+        
+        //Driving(x,y,e.lnglat.getLng(),e.lnglat.getLat());
+        console.log(x,y,e.lnglat.getLng(),e.lnglat.getLat());
+
+    };
+    //点击事件
+    //map.on('click',clickHandler);
+    //停止拖拽地图时触发 mapmove地图平移时触发
+     map.on("dragend",function(){
+        if(daohang==0){
+         Geting();
+        }
+     });
+
+     //导航
+    //构造路线导航类  步行
+    var driving = new AMap.Walking({
+        map: map,
+    });
+     function Driving(x,y,a,b){
+        driving.search(new AMap.LngLat(x,y), new AMap.LngLat(a, b));
+         AMap.event.addListener(driving, "complete", driving_routeCallBack)
+         console.log("导航成功："+driving.plans);
+         Locationagain(); //调用持续定位
+         
+     }
+     //距离
+   function driving_routeCallBack(data) {     //data 为信息
+       console.log(data);
+       var routeS = data.routes;
+	   var distance = routeS[0].distance;
+       console.log(distance);
+	   document.getElementById('tip').innerHTML = "距离：" + distance + "米";
+	   
+	}
+    //解析定位错误信息
+    function onError(data) {
+        var m = map.getCenter();
+        console.log(m);
+        y = map.getCenter().lat;
+        x = map.getCenter().lng;
+        var str=['定位失败,中心坐标'];
+        str.push('经度：' + x);
+        str.push('纬度：' + y);
+        document.getElementById('tip').innerHTML = str.join('<br>');
+    
+    }
+     //提供JS方法，让webview调用，添加marker
+    function addMarker(lng,lat,id) {
+        map.setZoomAndCenter([lng, lat]);
+        marker = new AMap.Marker({
+            //指定 Marker 的样式
+            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: [lng, lat],
+            clickable: true
+        });
+        //marker.setMap(map);
+        console.log("addMarker已执行")
+        map.add(marker);
+        marker.on('click', function() {
+            Driving(x,y,lng,lat);
+            android.setShared(x,y,lng,lat);  //调用Android存储信息
+            mark = marker;
+            map.clearInfoWindow();
+            idd = id;
+        });
+    }
+    //由Android调用
+    function androidAddMarker(lng,lat,id) {
+        map.setZoomAndCenter([lng, lat]);
+        marker = new AMap.Marker({
+            icon: "bike.png",
+            position: [lng, lat],
+            clickable: true
+        });
+        console.log("addMarker已执行")
+        map.add(marker);
+        marker.on('click', function() {
+            Driving(x,y,lng,lat);
+            android.setShared(x,y,lng,lat);  //调用Android存储信息
+            mark = marker;
+            map.clearInfoWindow();
+            idd = id;
+        });
+    }
+
+     var geolo = new AMap.Geolocation({
+             // 是否使用高精度定位，默认：true
+             //enableHighAccuracy: true,
+             // 设置定位超时时间，默认：无穷大
+             //timeout: 1000,
+             //icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+             // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+             //buttonOffset: new AMap.Pixel(10, 20),
+             //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+             //zoomToAccuracy: true,
+             //  定位按钮的排放位置,  RB表示右下
+             //buttonPosition: 'LR',
+             //默认为false，设置为true的时候可以调整PC端为优先使用浏览器定位，失败后使用IP定位
+             //GeoLocationFirst: true,
+             //showCircle: false,        //定位成功后用圆圈表示定位精度范围，默认：true
+             //panToLocation: false,  //定位成功后将定位到的位置作为地图中心点，默认：true
+             useNative:true
+         });
+    function Locationagain(){
+           //map.addControl(geolo);
+           //geolo.getCurrentPosition();
+           geo.watchPosition();  //连续定位
+           daohang=1;
+    }
+    function Geting(){
+         //document.getElementById('tip').innerHTML = "地图图块加载完毕！当前地图中心点为：" + map.getCenter();
+        n = map.getCenter().lat;
+        m = map.getCenter().lng;
+         $.ajax({
+                    type: "GET",        //type：(string)请求方式，POST或GET
+            cache: false,
+            async: true,   //是否异步
+                    dataType: "jsonp",    //dataType：(string)预期返回的数据类型。xml,html,json,text等
+                     jsonp:"callback",
+                    jsonpCallback:"mobike",
+                    url: "http://www.peoplevip.cn/tool/mobike.php?x="+m+"&y="+n,  //url：(string)发送请求的地址，可以是服务器页面也可以是WebService动作。
+                    success: function (msge) {
+                        console.log(msge);
+                        console.log(msge.object)
+                        if(msge.code==0){
+                            for (var i in msge.object) {
+                            var bikx =  msge.object[i].distX;
+                            var biky = msge.object[i].distY;
+                            var id = msge.object[i].distId;
+                            //console.log("共享单车x坐标"+bikx);
+                            addMarker(bikx,biky,id);
+							idd =id;
+                           // $(".amap-icon").on("click",function(){alert("111"); });
+                        }
+                    }else{
+                        document.getElementById('tip').innerHTML = "单车：" + msge.message;
+                    }
+                }
+            });
+     }
+
+</script>
+</body>
+</html>
+
