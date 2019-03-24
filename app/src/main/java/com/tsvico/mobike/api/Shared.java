@@ -3,7 +3,6 @@ package com.tsvico.mobike.api;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.Iterator;
 import java.util.Map;
 
 public class Shared {
@@ -13,9 +12,7 @@ public class Shared {
      */
     public static void saveSettingNote(Context context,String filename ,Map<String, String> map) {
         SharedPreferences.Editor note = context.getSharedPreferences(filename, Context.MODE_PRIVATE).edit();
-        Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, String> entry = it.next();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             note.putString(entry.getKey(), entry.getValue());
         }
         note.commit();
