@@ -1,2 +1,2 @@
 # 单车新型智能锁
-AndroidStudio 3.2
+-- IDE AndroidStudio 3.2
